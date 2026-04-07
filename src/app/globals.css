@@ -1,0 +1,235 @@
+@import "tailwindcss";
+
+/* ------------------------------
+   Global base
+--------------------------------- */
+:root {
+  --bg: #f5f5f5;
+  --panel: #ffffff;
+  --line: #e6e6e6;
+  --muted: #8a8f98;
+  --text: #20242a;
+  --red: #b80000;
+  --red-dark: #8d0000;
+  --red-soft: #f8d9d9;
+  --green: #00a96e;
+  --navy: #182235;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-noto-sans-thai), sans-serif;
+}
+
+/* ------------------------------
+   Reusable utilities
+--------------------------------- */
+.app-shell {
+  min-height: 100vh;
+  background: #f6f6f6;
+}
+
+.panel {
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+.soft-shadow {
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+}
+
+.muted-text {
+  color: #9197a3;
+}
+
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a0a6b0;
+}
+
+.red-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: var(--red);
+  color: white;
+  transition: 0.2s ease;
+}
+
+.red-btn:hover {
+  background: var(--red-dark);
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  background: white;
+  color: #5b6270;
+  transition: 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: #fafafa;
+  color: #1f2937;
+}
+
+/* ------------------------------
+   Sidebar
+--------------------------------- */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 0;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #5f6672;
+  transition: 0.2s ease;
+}
+
+.sidebar-item:hover {
+  background: #f8f8f8;
+  color: #20242a;
+}
+
+.sidebar-item.active {
+  background: #f4f4f4;
+  color: #20242a;
+  font-weight: 600;
+}
+
+.sidebar-item .dot-badge {
+  margin-left: auto;
+  display: inline-flex;
+  height: 16px;
+  min-width: 16px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #c70000;
+  padding: 0 5px;
+  font-size: 10px;
+  color: white;
+}
+
+/* ------------------------------
+   Dashboard
+--------------------------------- */
+.dashboard-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #20242a;
+}
+
+.profile-card {
+  border-radius: 8px;
+  background: linear-gradient(180deg, #ba0000 0%, #a30000 100%);
+  color: white;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.08);
+}
+
+.profile-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 4px;
+  background: #8d0000;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.profile-chip:hover {
+  background: #7b0000;
+}
+
+.stat-card {
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: white;
+  padding: 14px 16px;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+.stat-icon-box {
+  display: inline-flex;
+  height: 30px;
+  width: 30px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: #b20000;
+  color: white;
+}
+
+.table-head {
+  background: #162033;
+  color: white;
+}
+
+.feature-card {
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: white;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+.feature-card-top {
+  display: flex;
+  min-height: 82px;
+  align-items: center;
+  justify-content: center;
+  background: #ef0000;
+  color: white;
+}
+
+.feature-card-body {
+  padding: 12px 14px;
+}
+
+.feature-card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #c10000;
+}
+
+.feature-card-desc {
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #5f6672;
+}
+
+/* ------------------------------
+   Responsive
+--------------------------------- */
+@media (max-width: 1279px) {
+  .desktop-sidebar {
+    display: none;
+  }
+}
+
+@media (min-width: 1280px) {
+  .mobile-sidebar {
+    display: none;
+  }
+}
