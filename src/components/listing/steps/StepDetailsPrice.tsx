@@ -1,8 +1,6 @@
-import { List, WalletCards } from "lucide-react";
+import { List } from "lucide-react";
 import {
   propertyFieldMap,
-  rentalContractOptions,
-  rentalStatusOptions,
   saleUnitOptions,
 } from "@/data/listing";
 
@@ -17,32 +15,26 @@ export default function StepDetailsPrice({
 }: StepDetailsPriceProps) {
   const selectedFields = propertyFieldMap[formData.propertyType] || [];
 
-  const isRent = formData.postType === "เช่า";
   const isSale =
     formData.postType === "ขาย" || formData.postType === "ขายดาวน์";
+  const isRent = formData.postType === "เช่า";
   const isSaleAndRent = formData.postType === "ขายและเช่า";
 
   return (
-    <section className="rounded-[16px] border border-[#ececec] bg-white p-4 shadow-[0_4px_16px_rgba(16,24,40,0.05)] md:p-5">
+    <section className="rounded-[16px] border border-[#ececec] bg-white p-4 shadow-[0_4px_16px_rgba(16,24,40,0.05)] md:p-5 xl:p-6">
       <div className="flex items-center gap-2 border-b border-[#f0f0f0] pb-4">
         <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#ffe9e9] text-[#ef0000]">
           <List className="h-3.5 w-3.5" />
         </div>
-        <h3 className="text-[20px] font-bold text-[#2b2f36] md:text-[22px]">
+        <h3 className="text-[20px] font-bold text-[#2b2f36] xl:text-[22px]">
           รายละเอียดทรัพย์สินและราคา
         </h3>
       </div>
 
       <div className="mt-5 space-y-5">
-        {/* กลุ่มราคาขาย */}
         {(isSale || isSaleAndRent) && (
-          <div className="space-y-4 rounded-[14px] border border-[#f1f1f1] bg-[#fcfcfc] p-4">
-            <div className="flex items-center gap-2">
-              <WalletCards className="h-4 w-4 text-[#ef0000]" />
-              <p className="text-[13px] font-bold text-[#2b2f36]">ข้อมูลราคาขาย</p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 gap-4 xl:grid-cols-4">
               <Input
                 label="ราคา (บาท)"
                 required
@@ -61,27 +53,19 @@ export default function StepDetailsPrice({
                 onChange={(value) => onChange("salePriceUnit", value)}
               />
 
-              <div className="flex items-end">
-                <button
-                  type="button"
-                  className="h-[46px] w-full rounded-[12px] bg-[#a92d2d] px-4 text-[13px] font-semibold text-white transition hover:bg-[#922525]"
-                >
-                  ตรวจสอบราคาตลาด
-                </button>
-              </div>
+              <Input
+                label="โปรโมชัน (ถ้ามี)"
+                placeholder="เช่น ฟรีค่าส่วนกลาง 10 เดือน"
+                value={formData.promo || ""}
+                onChange={(value) => onChange("promo", value)}
+              />
             </div>
           </div>
         )}
 
-        {/* กลุ่มราคาเช่า */}
-        {(isRent || isSaleAndRent) && (
-          <div className="space-y-4 rounded-[14px] border border-[#f1f1f1] bg-[#fcfcfc] p-4">
-            <div className="flex items-center gap-2">
-              <WalletCards className="h-4 w-4 text-[#ef0000]" />
-              <p className="text-[13px] font-bold text-[#2b2f36]">ข้อมูลราคาเช่า</p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+        {isRent && (
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 gap-4 xl:grid-cols-4">
               <Input
                 label="ราคาให้เช่าต่อเดือน"
                 required
@@ -91,35 +75,30 @@ export default function StepDetailsPrice({
                 icon="฿"
               />
 
-              <SelectBox
-                label="สถานะการเช่า"
-                value={formData.rentalStatus || ""}
-                options={rentalStatusOptions}
-                defaultLabel="สถานะการเช่า"
-                onChange={(value) => onChange("rentalStatus", value)}
+              <Input
+                label="โปรโมชัน (ถ้ามี)"
+                placeholder="เช่น ฟรีค่าส่วนกลาง 10 เดือน"
+                value={formData.promo || ""}
+                onChange={(value) => onChange("promo", value)}
               />
-
-              <SelectBox
-                label="ระยะเวลาสัญญาเช่า"
-                value={formData.leaseTerm || ""}
-                options={rentalContractOptions}
-                defaultLabel="ระยะเวลาสัญญาเช่า"
-                onChange={(value) => onChange("leaseTerm", value)}
-              />
-
-              <div className="flex items-end">
-                <button
-                  type="button"
-                  className="h-[46px] w-full rounded-[12px] bg-[#a92d2d] px-4 text-[13px] font-semibold text-white transition hover:bg-[#922525]"
-                >
-                  ตรวจสอบราคาตลาด
-                </button>
-              </div>
             </div>
           </div>
         )}
 
-        {/* ฟิลด์ตามประเภททรัพย์ */}
+        {isSaleAndRent && (
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 gap-4 xl:grid-cols-4">
+              <Input
+                label="ราคาให้เช่าต่อเดือน"
+                placeholder="ราคาให้เช่า"
+                value={formData.monthlyRentPrice || ""}
+                onChange={(value) => onChange("monthlyRentPrice", value)}
+                icon="฿"
+              />
+            </div>
+          </div>
+        )}
+
         <div className="space-y-4">
           <div>
             <p className="text-[13px] font-bold text-[#2b2f36]">

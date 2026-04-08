@@ -78,19 +78,6 @@ export default function StepLocation({
           />
         </div>
 
-        {/* ตำแหน่งที่เลือก */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <ReadonlyField
-            label="Latitude"
-            value={formData.lat || "-"}
-          />
-
-          <ReadonlyField
-            label="Longitude"
-            value={formData.lng || "-"}
-          />
-        </div>
-
         <div>
           <label className="mb-2 block text-[12px] font-semibold text-[#4b5563]">
             ที่อยู่จากแผนที่
@@ -100,26 +87,10 @@ export default function StepLocation({
           </div>
         </div>
 
-        {/* แผนที่ */}
         <div>
           <p className="mb-2 text-[12px] font-semibold text-[#4b5563]">
             ตำแหน่งแผนที่
           </p>
-
-          {/* 
-            ถ้านายมี InteractiveGoogleMap แล้ว
-            ให้เอา block ด้านล่างนี้ออก แล้วใส่ component map ของนายแทนได้เลย
-
-            <InteractiveGoogleMap
-              initialLat={formData.lat ? Number(formData.lat) : 13.7563}
-              initialLng={formData.lng ? Number(formData.lng) : 100.5018}
-              onLocationChange={({ lat, lng, address }) => {
-                onChange("lat", String(lat));
-                onChange("lng", String(lng));
-                onChange("fullAddress", address);
-              }}
-            />
-          */}
 
           <div className="overflow-hidden rounded-[14px] border border-[#ececec]">
             <div className="flex h-[260px] items-center justify-center bg-[linear-gradient(135deg,#eee6d6,#ddd2bb,#d4ddc5)] text-center text-[13px] text-[#7a7f87] md:h-[320px]">
@@ -164,26 +135,6 @@ function Field({
         placeholder={placeholder}
         className="h-[46px] w-full rounded-[12px] border border-[#e5e7eb] bg-white px-3 text-[13px] outline-none placeholder:text-[#b6bcc5] focus:border-[#ff6b6b]"
       />
-    </div>
-  );
-}
-
-function ReadonlyField({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
-  return (
-    <div>
-      <label className="mb-2 block text-[12px] font-semibold text-[#4b5563]">
-        {label}
-      </label>
-
-      <div className="flex min-h-[46px] items-center rounded-[12px] border border-[#e5e7eb] bg-[#fafafa] px-3 text-[13px] text-[#66707f]">
-        {value}
-      </div>
     </div>
   );
 }
