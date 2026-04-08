@@ -4,6 +4,7 @@ import {
   CircleDollarSign,
   Heart,
   MapPinned,
+  Newspaper,
   Pin,
   Star,
   BarChart3,
@@ -73,30 +74,38 @@ const actions = [
 
 export default function HomePage() {
   return (
-    <main className="app-shell">
+    <main className="min-h-screen bg-[#f6f6f6]">
       <div className="flex min-h-screen">
-        {/* Sidebar */}
-        <Sidebar />
+        {/* sidebar ฝั่ง desktop เท่านั้น */}
+        <div className="hidden xl:block">
+          <Sidebar />
+        </div>
 
-        {/* Main area */}
+        {/* main */}
         <div className="flex min-w-0 flex-1 flex-col">
           <Topbar />
 
-          <section className="px-4 py-5 md:px-6 xl:px-7">
-            <div className="mx-auto max-w-[1180px]">
-              {/* title */}
+          <section className="px-4 py-4 md:px-6 xl:px-7">
+            <div className="mx-auto w-full max-w-[1180px]">
+              {/* หัวข้อ */}
               <div className="mb-4">
-                <h1 className="dashboard-title text-[26px]">แดชบอร์ด</h1>
+                <h1 className="text-[22px] font-extrabold text-[#20242a] md:text-[26px]">
+                  แดชบอร์ด
+                </h1>
               </div>
 
-              {/* profile card */}
+              {/* โปรไฟล์ */}
               <ProfileCard
                 name="Chanathip Changkaew"
                 subtitle="ประกาศโดยใช้ : สมาชิกทั่วไป      เพิ่มเมื่อเป็นสมาชิก"
               />
 
-              {/* stats row */}
-              <section className="mt-4 grid gap-3 xl:grid-cols-[1fr_1fr_1fr_1.15fr]">
+              {/* stat cards
+                 mobile = 1 คอลัมน์
+                 tablet = 2 คอลัมน์
+                 desktop = 4 คอลัมน์
+              */}
+              <section className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-[1fr_1fr_1fr_1.15fr]">
                 {stats.map((item, index) => (
                   <StatCard
                     key={index}
@@ -110,23 +119,26 @@ export default function HomePage() {
                 ))}
               </section>
 
-              {/* middle content */}
-              <section className="mt-4 grid gap-4 xl:grid-cols-[1.45fr_0.75fr]">
-                {/* left table */}
-                <article className="panel soft-shadow rounded-[8px] bg-white p-0">
-                  <div className="flex items-center justify-between border-b border-[#efefef] px-4 py-3">
-                    <div>
-                      <p className="text-[14px] font-bold text-[#ea0000]">
-                        แพ็กเกจโปรโมชันสำหรับประกาศของคุณ
-                      </p>
-                    </div>
+              {/* กลางหน้า
+                 mobile = เรียงบนลงล่าง
+                 desktop = ซ้าย/ขวา
+              */}
+              <section className="mt-4 grid grid-cols-1 gap-4 xl:grid-cols-[1.45fr_0.75fr]">
+                {/* table package */}
+                <article className="rounded-[12px] border border-[#ececec] bg-white shadow-[0_2px_8px_rgba(16,24,40,0.04)]">
+                  <div className="flex flex-col gap-2 border-b border-[#efefef] px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+                    <p className="text-[14px] font-bold text-[#ea0000]">
+                      แพ็กเกจโปรโมชันสำหรับประกาศของคุณ
+                    </p>
+
                     <p className="text-[11px] text-[#a7acb5]">
                       คุณยังไม่ได้ใช้สิทธิ์การประกาศเพิ่มเติม
                     </p>
                   </div>
 
-                  <div className="overflow-hidden rounded-b-[8px]">
-                    <div className="table-head grid grid-cols-[70px_1.4fr_1fr] px-4 py-3 text-[12px] font-semibold">
+                  {/* desktop/tablet table */}
+                  <div className="hidden sm:block">
+                    <div className="grid grid-cols-[70px_1.4fr_1fr] bg-[#162033] px-4 py-3 text-[12px] font-semibold text-white">
                       <span>#</span>
                       <span>ชื่อแพ็กเกจ</span>
                       <span>วันหมดอายุ</span>
@@ -136,10 +148,22 @@ export default function HomePage() {
                       ไม่มีแพ็กเกจที่ใช้งานอยู่
                     </div>
                   </div>
+
+                  {/* mobile card style */}
+                  <div className="block p-4 sm:hidden">
+                    <div className="rounded-[10px] border border-[#ececec] bg-[#fafafa] p-4">
+                      <p className="text-[12px] font-semibold text-[#20242a]">
+                        ไม่มีแพ็กเกจที่ใช้งานอยู่
+                      </p>
+                      <p className="mt-1 text-[11px] text-[#98a1ad]">
+                        เมื่อมีแพ็กเกจที่ใช้งาน ระบบจะแสดงรายละเอียดตรงนี้
+                      </p>
+                    </div>
+                  </div>
                 </article>
 
-                {/* right latest news */}
-                <article className="panel soft-shadow rounded-[8px] bg-white">
+                {/* ข่าวล่าสุด */}
+                <article className="rounded-[12px] border border-[#ececec] bg-white shadow-[0_2px_8px_rgba(16,24,40,0.04)]">
                   <div className="flex items-center gap-2 border-b border-[#efefef] px-4 py-3">
                     <Pin className="h-4 w-4 text-[#f04c4c]" />
                     <h3 className="text-[15px] font-bold text-[#2a2f38]">
@@ -156,12 +180,12 @@ export default function HomePage() {
               {/* action cards */}
               <section className="mt-5">
                 <div className="mb-3">
-                  <h2 className="text-[18px] font-bold text-[#f00000]">
+                  <h2 className="text-[17px] font-bold text-[#f00000] md:text-[18px]">
                     ตัวช่วยสำหรับจัดการขาย
                   </h2>
                 </div>
 
-                <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
                   {actions.map((item) => (
                     <ActionCard
                       key={item.title}
@@ -172,6 +196,9 @@ export default function HomePage() {
                   ))}
                 </div>
               </section>
+
+              {/* เพิ่มพื้นที่ล่างนิดหน่อย กันชิดขอบบนมือถือ */}
+              <div className="h-6" />
             </div>
           </section>
         </div>

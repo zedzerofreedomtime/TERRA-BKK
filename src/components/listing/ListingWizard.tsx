@@ -179,6 +179,7 @@ export default function ListingWizard() {
     <>
       <section className="px-4 py-5 md:px-6 xl:px-7">
         <div className="mx-auto max-w-[1180px]">
+          <div className="mx-auto w-full max-w-[420px] xl:max-w-none">
           <div className="mb-5 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <div>
               <h1 className="text-[32px] font-extrabold tracking-tight text-[#20242a]">
@@ -293,8 +294,9 @@ export default function ListingWizard() {
             isLastStep={currentStep === 6}
             onBack={goBack}
             onNext={goNext}
-          />
+         />
         </div>
+      </div>
       </section>
 
       {modalConfig && (
