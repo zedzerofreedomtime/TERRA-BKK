@@ -2,9 +2,9 @@ import type { LucideIcon } from "lucide-react";
 import {
   Activity,
   CircleDollarSign,
+  Coins,
   Heart,
   MapPinned,
-  Newspaper,
   Pin,
   Star,
   BarChart3,
@@ -33,22 +33,22 @@ const stats: StatItem[] = [
   },
   {
     title: "พอร์ตของคุณ",
-    value: "500",
+    value: "0",
     icon: CircleDollarSign,
   },
   {
     title: "อายุการเป็นสมาชิก",
-    value: "10",
+    value: "0",
     suffix: "เดือน",
     icon: Star,
   },
   {
-    title: "",
-    value: "",
-    icon: Pin,
-    theme: "green",
-    actionLabel: "เพิ่มพอร์ต",
-  },
+  title: "",
+  value: "",
+  icon: Coins,
+  theme: "green",
+  actionLabel: "เพิ่มพอยท์",
+}
 ];
 
 const actions = [
