@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { ArrowUp, Clock3, Star } from "lucide-react";
 
 import ListingStepper from "@/components/listing/ListingStepper";
@@ -26,6 +26,15 @@ export default function ListingWizard() {
     serviceType: "ไม่ต้องการ",
     propertyType: "",
     postType: "",
+    allocationType: "",
+    projectName: "",
+
+    salePrice: "",
+    salePriceUnit: "",
+    monthlyRentPrice: "",
+    rentalStatus: "",
+    leaseTerm: "",
+    marketPrice: "",
 
     price: "",
     unitType: "",
@@ -69,19 +78,25 @@ export default function ListingWizard() {
   ) => {
     if (field === "selectedFurnitures") {
       setSelectedFurnitures((prev) =>
-        prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+        prev.includes(value)
+          ? prev.filter((item) => item !== value)
+          : [...prev, value]
       );
     }
 
     if (field === "selectedHighlights") {
       setSelectedHighlights((prev) =>
-        prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+        prev.includes(value)
+          ? prev.filter((item) => item !== value)
+          : [...prev, value]
       );
     }
 
     if (field === "selectedConveniences") {
       setSelectedConveniences((prev) =>
-        prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+        prev.includes(value)
+          ? prev.filter((item) => item !== value)
+          : [...prev, value]
       );
     }
   };
@@ -94,6 +109,7 @@ export default function ListingWizard() {
     ];
 
     const nextImage = mockImages[images.length % mockImages.length];
+
     if (images.length < 9) {
       setImages((prev) => [...prev, nextImage]);
     }
@@ -111,14 +127,14 @@ export default function ListingWizard() {
     setCurrentStep((prev) => Math.max(prev - 1, 1));
   };
 
-  const modalConfig = useMemo(() => {
+  const getModalConfig = () => {
     if (modalType === "boost") {
       return {
         title: "ดันประกาศขึ้นบนสุด",
         description:
           "การดันประกาศที่ใช้จะทำให้ประกาศของคุณขึ้นไปอยู่ด้านบนสุด ช่วยเพิ่มโอกาสในการมองเห็นให้แก่ผู้ค้นหา",
         price: 20,
-        icon: <ArrowUp className="h-6 w-6 text-[#3b82f6]" />,
+        iconType: "boost" as const,
       };
     }
 
@@ -128,7 +144,7 @@ export default function ListingWizard() {
         description:
           "ประกาศของคุณที่เลือกเล่นจะโดดเด่นเป็นพิเศษ ช่วยเพิ่มโอกาสในการขาย/เช่ามากกว่าเดิม",
         price: 150,
-        icon: <Star className="h-6 w-6 text-[#f59e0b]" />,
+        iconType: "promote" as const,
       };
     }
 
@@ -138,12 +154,26 @@ export default function ListingWizard() {
         description:
           "เพิ่มอายุประกาศของคุณต่อไปอีก 30 วันนับจากวันที่ปัจจุบัน เพื่อไม่ให้ประกาศถูกปิดใช้งานตามอายุ",
         price: 30,
-        icon: <Clock3 className="h-6 w-6 text-[#22c55e]" />,
+        iconType: "extend" as const,
       };
     }
 
     return null;
-  }, [modalType]);
+  };
+
+  const renderModalIcon = (iconType: "boost" | "promote" | "extend") => {
+    if (iconType === "boost") {
+      return <ArrowUp className="h-6 w-6 text-[#3b82f6]" />;
+    }
+
+    if (iconType === "promote") {
+      return <Star className="h-6 w-6 text-[#f59e0b]" />;
+    }
+
+    return <Clock3 className="h-6 w-6 text-[#22c55e]" />;
+  };
+
+  const modalConfig = getModalConfig();
 
   return (
     <>
@@ -269,12 +299,12 @@ export default function ListingWizard() {
 
       {modalConfig && (
         <PurchaseModal
-          open={!!modalConfig}
+          open={true}
           title={modalConfig.title}
           description={modalConfig.description}
           price={modalConfig.price}
           points={servicePoints}
-          icon={modalConfig.icon}
+          icon={renderModalIcon(modalConfig.iconType)}
           onClose={() => setModalType(null)}
           onConfirm={() => setModalType(null)}
         />

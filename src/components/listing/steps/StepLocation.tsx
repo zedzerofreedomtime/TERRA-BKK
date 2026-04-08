@@ -1,4 +1,5 @@
 import { MapPin } from "lucide-react";
+import GoogleMapEmbed from "@/components/maps/GoogleMapEmbed";
 
 type StepLocationProps = {
   formData: {
@@ -8,6 +9,8 @@ type StepLocationProps = {
     district: string;
     subdistrict: string;
     postcode: string;
+    lat?: string;
+    lng?: string;
   };
   onChange: (field: string, value: string) => void;
 };
@@ -16,6 +19,18 @@ export default function StepLocation({
   formData,
   onChange,
 }: StepLocationProps) {
+  const mapQuery = [
+    formData.houseNumber,
+    formData.road,
+    formData.subdistrict,
+    formData.district,
+    formData.province,
+    formData.postcode,
+    "Thailand",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <section className="rounded-[14px] border border-[#ececec] bg-white p-5 shadow-[0_2px_8px_rgba(16,24,40,0.04)]">
       <div className="flex items-center gap-2 border-b border-[#f0f0f0] pb-4">
@@ -72,11 +87,11 @@ export default function StepLocation({
           ตำแหน่งแผนที่
         </p>
 
-        <div className="overflow-hidden rounded-[12px] border border-[#ececec]">
-          <div className="flex h-[260px] items-center justify-center bg-[linear-gradient(135deg,#e8e1d2,#d4c4a8,#c0d0b2)] text-[13px] text-[#666]">
-            พื้นที่แสดงแผนที่
-          </div>
-        </div>
+        <GoogleMapEmbed
+          query={mapQuery}
+          lat={formData.lat}
+          lng={formData.lng}
+        />
       </div>
     </section>
   );

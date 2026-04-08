@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { LucideIcon } from "lucide-react";
@@ -12,13 +13,13 @@ import {
   FileText,
   Globe,
   HeartHandshake,
-  Home,
   LayoutDashboard,
   Megaphone,
   Newspaper,
   Settings,
   Shield,
   Tags,
+  MessageSquare,
 } from "lucide-react";
 
 type MenuItem = {
@@ -41,7 +42,7 @@ const sections: MenuSection[] = [
       { label: "หน้าเว็บไซต์ของคุณ", href: "/", icon: Globe },
       { label: "Dashboard", href: "/", icon: LayoutDashboard },
       { label: "โปรไฟล์", href: "/profile", icon: CircleUserRound },
-      { label: "ข้อความ", href: "/messages", icon: Home, badge: "0" },
+      { label: "ข้อความ", href: "/messages", icon: MessageSquare, badge: "0" },
       { label: "พอร์ต", href: "/wallet", icon: Tags },
       { label: "รายการกำกับสิทธิ์", href: "#", icon: BookOpen, hasDropdown: true },
       { label: "เอเย่น", href: "/agent", icon: Shield },
@@ -53,7 +54,7 @@ const sections: MenuSection[] = [
     items: [
       { label: "ประกาศของคุณ", href: "/my-listings", icon: FileText },
       { label: "รายงานประกาศของคุณ", href: "/listing-reports", icon: Activity },
-      { label: "การจัดอันดับ", href: "/favorites", icon: HeartHandshake },
+      { label: "ทรัพย์ที่สนใจ", href: "/favorites", icon: HeartHandshake },
       { label: "เพิ่มประกาศ", href: "/add-listing", icon: Megaphone },
     ],
   },
@@ -66,9 +67,7 @@ const sections: MenuSection[] = [
   },
   {
     title: "SETTINGS",
-    items: [
-      { label: "ลบบัญชีผู้ใช้", href: "/settings", icon: Settings },
-    ],
+    items: [{ label: "ลบบัญชีผู้ใช้", href: "/settings", icon: Settings }],
   },
 ];
 
@@ -78,15 +77,16 @@ export default function Sidebar() {
   return (
     <aside className="desktop-sidebar panel soft-shadow h-[calc(100vh-1px)] w-[240px] border-r bg-white">
       <div className="flex h-[68px] items-center border-b border-[#ececec] px-5">
-        <div className="flex items-center gap-1">
-          <span className="text-[18px] font-extrabold tracking-tight text-[#d13a2f]">
-            TERRA
-          </span>
-          <span className="text-[18px] font-light tracking-tight text-[#6d6d6d]">
-            BKK
-          </span>
-          <span className="ml-1 inline-block h-3 w-3 rotate-45 rounded-[2px] bg-[#c40000]" />
-        </div>
+        <Link href="/" className="block">
+          <Image
+            src="/terrabkk-logo.png"
+            alt="TERRABKK"
+            width={180}
+            height={48}
+            className="h-auto w-[150px]"
+            priority
+          />
+        </Link>
       </div>
 
       <div className="h-[calc(100vh-68px)] overflow-y-auto px-0 py-3">
@@ -109,7 +109,6 @@ export default function Sidebar() {
                   >
                     <Icon className="h-4 w-4 shrink-0" />
                     <span className="truncate">{item.label}</span>
-
                     {item.badge && <span className="dot-badge">{item.badge}</span>}
                     {item.hasDropdown && <ChevronDown className="ml-auto h-4 w-4" />}
                   </Link>
